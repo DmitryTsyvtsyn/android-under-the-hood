@@ -53,7 +53,7 @@
 
 ## Содержимое
 
-Пока 0 статей.
+1) [Как androidx.lifecycle.ViewModel восстанавливается при изменении конфигурации?](articles/how_viewmodels_are_restored.md)
 
 
 
