@@ -54,6 +54,7 @@
 ## Содержимое
 
 1) [Как androidx.lifecycle.ViewModel восстанавливается при изменении конфигурации?](articles/how_viewmodels_are_restored.md)
+2) [Интересные приемы, взятые из исходного кода Android SDK](articles/interesting_tricks_taken_from_Android_SDK_source_code.md)
 
 
 
