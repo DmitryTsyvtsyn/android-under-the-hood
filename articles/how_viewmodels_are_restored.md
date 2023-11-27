@@ -27,6 +27,10 @@ val viewModel = ViewModelProvider(this)[BookListViewModel::class.java]
 
 // MainFragment.kt
 val viewModel = ViewModelProvider(this)[BookListViewModel::class.java]
+
+// или часто используемый Kotlin Extension
+// P.S. под капотом ViewModelProvider, гляньте если не верите)
+val viewModel by viewModels<BookListViewModel>()
 ```
 
 Мы используем ViewModelProvider для того, чтобы при пересоздании Activity или Fragment'a нам вернулся сохраненный экземпляр ViewModel. 
