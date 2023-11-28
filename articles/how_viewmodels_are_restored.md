@@ -136,7 +136,7 @@ public open operator fun <T : ViewModel> get(key: String, modelClass: Class<T>):
 
 Как вы видите, ViewModel берётся из ViewModelStore, а в случае первого создания добавляется.
 
-ViewModelStore это простая обертка над HashMap с простым функционалом очистки (вспомните метод onCleared):
+ViewModelStore это простая обертка над HashMap с элементарным методом очистки (вспомните метод onCleared):
 
 ```kotlin
 public class ViewModelStore {
