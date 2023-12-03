@@ -21,7 +21,7 @@ class CustomView(ctx: Context) : View(ctx) {
 
 Если глянуть под капот этих методов, то можно увидеть битовые операции с одним и тем же целочисленным значением:
 
-```kotlin
+```java
 
 public static int getSize(int measureSpec) {
     return (measureSpec & ~MODE_MASK)
@@ -37,7 +37,7 @@ public static int getMode(int measureSpec) {
 
 MODE_MASK это специальная константа:
 
-```kotlin
+```java
 
 private static final int MODE_SHIFT = 30;
 private static final int MODE_MASK  = 0x3 << MODE_SHIFT;
@@ -54,7 +54,7 @@ private static final int MODE_MASK  = 0x3 << MODE_SHIFT;
 
 Снова вернёмся к методу:
 
-```kotlin
+```java
 
 public static int getMode(int measureSpec) {
     return (measureSpec & MODE_MASK);
@@ -71,7 +71,7 @@ public static int getMode(int measureSpec) {
 
 Два бита нужны для сохранения одного из следующих значений (легковесный enum на битах):
 
-```kotlin
+```java
 
 // 00000000 00000000 00000000 00000000
 public static final int UNSPECIFIED = 0 << MODE_SHIFT;
@@ -86,7 +86,7 @@ public static final int AT_MOST = 2 << MODE_SHIFT;
 
 Второй метод работает практически аналогично, но только извлекает все биты кроме первых двух:
 
-```kotlin
+```java
 public static int getSize(int measureSpec) {
     return (measureSpec & ~MODE_MASK)
 }
