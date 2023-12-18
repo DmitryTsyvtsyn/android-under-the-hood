@@ -55,5 +55,6 @@
 2) [Интересные приемы, взятые из исходного кода Android SDK](articles/interesting_tricks_taken_from_Android_SDK_source_code.md)
 3) [Хранение нескольких значений в одном целочисленном типе с помощью битовых масок](articles/storing_multiple_data_in_single_integer_type_using_bitmasks.md)
 4) [Учимся читать исходники на примере android.view.ViewStub](articles/learning_to_read_sources_by_example_viewstub.md)
+5) [Тестируем Android layout'ы](articles/testing_android_layouts.md)
 
 
