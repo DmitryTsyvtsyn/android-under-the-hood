@@ -52,7 +52,7 @@ class MessageQueue {
 }
 ```
 
-Но я на этом останавливаться не стал и полез внутрь C++ исходников android_os_MessageQueue.cpp (https://android.googlesource.com/platform/frameworks/base/+/master/core/jni/android_os_MessageQueue.cpp) и Looper.cpp (https://android.googlesource.com/platform/frameworks/native/+/jb-dev/libs/utils/Looper.cpp), для понимания здесь упрощенный вариант кода:
+Но я на этом останавливаться не стал и полез внутрь C++ исходников [android_os_MessageQueue.cpp](https://android.googlesource.com/platform/frameworks/base/+/master/core/jni/android_os_MessageQueue.cpp) и [Looper.cpp](https://android.googlesource.com/platform/frameworks/native/+/jb-dev/libs/utils/Looper.cpp), для понимания здесь упрощенный вариант кода:
 
 ```cpp
 // так в C++ объявляется конструктор класса Looper
@@ -104,7 +104,7 @@ Looper::~Looper() {
 }
 ```
 
-Всё сводится к системным вызовам epoll и работы с файловыми дескрипторами. Более подробно о Epoll можно почитать на википедии (https://ru.wikipedia.org/wiki/Epoll) или погуглить статьи/видосы на эту тему. В качестве закрепления приведу более простой пример с комментами:
+Всё сводится к системным вызовам epoll и работы с файловыми дескрипторами. Более подробно о Epoll можно почитать на [википедии](https://ru.wikipedia.org/wiki/Epoll) или погуглить статьи/видосы на эту тему. В качестве закрепления приведу более простой пример с комментами:
 
 ```cpp
 /* создаёт файловый дескриптор с которым работают системные вызовы epoll */
