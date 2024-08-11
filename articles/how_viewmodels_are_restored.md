@@ -2,10 +2,10 @@
 
 Архитектурный паттерн [MVVM](https://ru.wikipedia.org/wiki/Model-View-ViewModel) приобрел огромную популярность в Android, а использование <b>androidx.lifecycle.ViewModel</b> встречается чуть ли не в каждом проекте.
 
-Для начала разберемся в отличиях двух понятий:
+Для начала разберёмся в отличиях двух понятий:
 
 1) ViewModel это компонент архитектуры MVVM, им может быть любой класс, необязательно наследник <b>androidx.lifecycle.ViewModel</b>
-2) класс <b>androidx.lifecycle.ViewModel</b> добавляет наследникам возможность быть сохраненными при изменении конфигурации устройства (переворот экрана), а также инкапсулирует методы для очистки используемых ресурсов (addCloseable, onCleared)
+2) класс <b>androidx.lifecycle.ViewModel</b> добавляет наследникам возможность быть сохранёнными при изменении конфигурации устройства (переворот экрана), а также инкапсулирует методы для очистки используемых ресурсов (addCloseable, onCleared)
 
 <b>!ВАЖНО: androidx.lifecycle.ViewModel не является реализацией компонента архитектуры MVVM.</b>
 
@@ -107,10 +107,10 @@ public interface ViewModelStoreOwner {
 public open operator fun <T : ViewModel> get(key: String, modelClass: Class<T>): T {
 
     // store это экземпляр ViewModelStore
-    // хранит в ViewModel'и в HashMap
+    // хранит все ViewModel'и в обычной HashMap'е
     val viewModel = store[key]
 
-    // если ViewModel была уже создана то не пересоздаем, а возвращаем ранее созданный экземпляр  
+    // если ViewModel была уже создана то не пересоздаём, а возвращаем ранее созданный экземпляр  
     if (modelClass.isInstance(viewModel)) {
         (factory as? OnRequeryFactory)?.onRequery(viewModel)
         return viewModel as T
@@ -136,12 +136,12 @@ public open operator fun <T : ViewModel> get(key: String, modelClass: Class<T>):
 
 Как вы видите, ViewModel берётся из ViewModelStore, а в случае первого создания добавляется.
 
-ViewModelStore это простая обертка над HashMap с элементарным методом очистки (вспомните метод onCleared):
+ViewModelStore это простая обёртка над HashMap с элементарным методом очистки (вспомните метод onCleared):
 
 ```kotlin
 public class ViewModelStore {
 
-    // самая обычная HashMap и всех обычных -_-
+    // самая обычная HashMap'а из всех обычных -_-
     private final HashMap<String, ViewModel> mMap = new HashMap<>();
 
     final void put(String key, ViewModel viewModel) {
@@ -180,7 +180,7 @@ public class ViewModelStore {
 
 Получилось? Поздравляю! Ну а если вам лень думать то читайте дальше)
 
-На самом деле все просто, вам не нужно далеко ходить, чтобы найти реализацию ViewModelStoreOwner интерфейса:
+На самом деле всё просто, вам не нужно далеко ходить, чтобы найти реализацию ViewModelStoreOwner интерфейса:
 
 ```kotlin
 // MainActivity.kt
@@ -190,7 +190,7 @@ val viewModel = ViewModelProvider(this)[BookListViewModel::class.java]
 val viewModel = ViewModelProvider(this)[BookListViewModel::class.java]
 ```
 
-Ссылка на текущий объект this в MainActivity/MainFragment указывает нам что эти компоненты реализуют ViewModelStoreOwner интерфейс.
+Ссылка на текущий объект this в MainActivity / MainFragment указывает нам что эти компоненты реализуют ViewModelStoreOwner интерфейс.
 
 Пройдёмся по порядку.
 
@@ -226,8 +226,8 @@ public class ComponentActivity extends ... implements ... {
                     
                     mContextAwareHelper.clearAvailableContext();
 
-                    // если Activity уничтожается и это не изменение конфигурации мы очищаем ViewModel'и
-                    // вспомните onCleared и addCloseable, если юзали
+                    // если Activity уничтожается и это не изменение конфигурации 
+                    // мы очищаем ViewModel'и, вспомните onCleared и addCloseable
                     if (!isChangingConfigurations()) {
                         getViewModelStore().clear();
                     }
@@ -237,7 +237,7 @@ public class ComponentActivity extends ... implements ... {
         
         // немного философии: на самом деле данный способ проинициализировать ViewModelStore выглядит 
         // избыточным, так как метод getViewModelStore() гарантирует инициализацию 
-        // скорее всего это фикс бага или покрытие специфичного кейса использовании
+        // скорее всего это фикс бага или покрытие специфичного кейса использования
         getLifecycle().addObserver(new LifecycleEventObserver() {
             @Override
             public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
@@ -312,7 +312,7 @@ public Object onRetainNonConfigurationInstance() {
     return null;
 }
 
-// возвращает ранее сохраненный объект
+// возвращает ранее сохранённый объект
 @Nullable
 public Object getLastNonConfigurationInstance() {
     return mLastNonConfigurationInstances != null
@@ -338,7 +338,7 @@ class MaiActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // получаем сохранённую ViewModel или создаем если MainActivity впервые была создана
+        // получаем сохранённую ViewModel или создаём если MainActivity впервые была создана
         viewModel = lastNonConfigurationInstance as? BookListViewModel ?: BookListViewModel()
         
         setContentView(FrameLayout(this))
@@ -365,12 +365,12 @@ class MaiActivity : Activity() {
 }
 ```
 
-Реализация содержится во FragmentManager'е, выделим основной код:
+Реализация содержится во FragmentManager'е, проваливаемся туда:
 
 ```kotlin
 public abstract class FragmentManager impements ... {
 
-    // специальная структура данных для сохранения ViewModelStore по Fragment uuid 
+    // специальная структура данных для сохранения ViewModelStore по Fragment UUID 
     // и реализующая вложенность mNonConfig друг в друга 
     private FragmentManagerViewModel mNonConfig;
 
@@ -391,7 +391,7 @@ public abstract class FragmentManager impements ... {
 
         if (parent != null) {
             // parent это родительский фрагмент
-            // если мы используем childFragmentManager и кладем туда фрагменты, 
+            // если мы используем childFragmentManager и кладём туда фрагменты, 
             // то для них создаются дочерние mNonConfig
             mNonConfig = parent.mFragmentManager.getChildNonConfig(parent);
         } else if (host instanceof ViewModelStoreOwner) {
@@ -409,12 +409,12 @@ public abstract class FragmentManager impements ... {
 }
 ```
 
-Все сводится к ViewModelStore который лежит в ComponentActivity, следовательно все ViewModel'и сохраняются через onRetainNonConfigurationInstance метод.
+Всё сводится к ViewModelStore который лежит в ComponentActivity, следовательно все ViewModel'и сохраняются через onRetainNonConfigurationInstance метод.
 
 <b>FragmentManagerViewModel</b> это всего лишь вспомогательный класс, в котором реализуется возможность построить иерархию ViewModelStore'ов для случаев когда появляются дочерние фрагменты (childFragmentManager).
 
 Надеюсь у вас не осталось больше вопросов, а если и остались то вы знаете где найти ответы (подсказка: в исходниках).
 
-Хорошего кода и побольше вкусностей!
+Всем хорошего кода и побольше вкусностей!
 
 
